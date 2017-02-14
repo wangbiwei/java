@@ -28,6 +28,36 @@ import 常量.返回对象;
 public class FileStudy
 {
 	/**
+	 * 重命名文件或者文件夹
+	 * @param path 文件路径
+	 * @param newName 新名称
+	 * @return
+	 */
+	public static 返回对象 重命名(String path, String newName)
+	{
+		return 重命名(new File(path), newName);
+	}
+	
+	/**
+	 * @param file
+	 * @param newName
+	 * @return
+	 */
+	public static 返回对象 重命名(File file, String newName)
+	{
+		if (!file.exists()) {
+			return new 返回对象(真假.FLASE, "源文件不存在！");
+		}
+		String path = file.getParent();
+		path = path + File.separatorChar + newName;
+		if (file.renameTo(new File(path))) {
+			return new 返回对象(真假.TRUE, "重命名成功");
+		}
+		
+		return new 返回对象(真假.TRUE, "重命名失败");
+	}
+	
+	/**
 	 * 新建文件夹或者文件
 	 * @param file 要建的文件夹或者文件
 	 * @param FileOrDirectory 标志
@@ -156,11 +186,12 @@ public class FileStudy
 		re.add(errorResult);
 		File[] list = file.listFiles();
 		File[] selectList = file.listFiles(new FilenameFilter() {
+			private Pattern pattern = Pattern.compile(tanslateString(regex));
 			
 			@Override
 			public boolean accept(File dir, String name)
 			{
-				return Pattern.compile(tanslateString(regex)).matcher(name).find();
+				return pattern.matcher(name).matches();
 			}
 			
 		});

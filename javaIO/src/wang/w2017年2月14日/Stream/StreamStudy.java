@@ -4,6 +4,8 @@
 package wang.w2017年2月14日.Stream;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,10 +32,60 @@ public class StreamStudy
 {
 	public static void main(String[] args)
 	{
+		
 	}
 	
 	/**
-	 * 已实现： 1 未实现：1 复制或者剪切文件
+	 * 复制或者剪切二进制文件
+	 * @param str 源文件
+	 * @param goal 目标文件
+	 * @param type 剪切还是复制
+	 * @return
+	 */
+	public static 返回对象 CopyOrCutBinaryFile(String str, String goal, String type)
+	{
+		return CopyOrCutBinaryFile(new File(str), new File(goal), type);
+	}
+	
+	/**
+	 * 复制或者剪切二进制文件
+	 * @param strFile 源文件
+	 * @param goleFile 目标文件
+	 * @param type 剪切还是复制
+	 * @return
+	 */
+	public static 返回对象 CopyOrCutBinaryFile(File strFile, File goleFile, String type)
+	{
+		if (!strFile.exists()) {
+			return new 返回对象(真假.FLASE, "源文件不存在!");
+		}
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		try {
+			bis = new BufferedInputStream(new FileInputStream(strFile));
+			bos = new BufferedOutputStream(new FileOutputStream(goleFile, true));
+			byte[] temp = new byte[1024];
+			while (bis.read(temp) != -1) {
+				bos.write(temp);
+			}
+		} catch (IOException e) {
+			return new 返回对象(真假.FLASE, "读取文件错误!");
+		} finally {
+			try {
+				bis.close();
+				bos.close();
+			} catch (IOException e) {
+				return new 返回对象(真假.FLASE, "关闭文件流错误!");
+			}
+		}
+		if ("cut".equalsIgnoreCase(type)) {
+			strFile.delete();
+		}
+		return new 返回对象(真假.TRUE, "复制成功！");
+	}
+	
+	/**
+	 * 复制或者剪切文本文件 已实现： 未实现：
 	 * @param str
 	 * @param goal
 	 * @param type 类型
@@ -47,6 +99,7 @@ public class StreamStudy
 	}
 	
 	/**
+	 * 复制或者剪切文本文件 已实现： 未实现：
 	 * @param strFile
 	 * @param goalFile
 	 * @return
@@ -59,6 +112,8 @@ public class StreamStudy
 		BufferedReader br = null;
 		BufferedWriter bw = null;
 		try {
+			// br = new BufferedReader(new FileReader(strFile));//方法1
+			// bw = new BufferedWriter(new FileWriter(goalFile, true));//方法1
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(strFile)));
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(goalFile, true)));
 			String temp = null;
@@ -84,25 +139,25 @@ public class StreamStudy
 	}
 	
 	/**
-	 * 将str写入文件（写入文件时，会把以前的内容丢弃）
+	 * 将str写入文件（）
 	 * @param path 文件路径
 	 * @param str 写入内容
 	 * @param 是否追加 true:放在文件末尾
 	 * @return
 	 */
-	public static 返回对象 写入文件(String path, String str, boolean 是否追加)
+	public static 返回对象 写入文本文件(String path, String str, boolean 是否追加)
 	{
-		return 写入文件(new File(path), str, 是否追加);
+		return 写入文本文件(new File(path), str, 是否追加);
 	}
 	
 	/**
-	 * 写入文件（写入文件时，会把以前的内容丢弃）
+	 * 写入文件（）
 	 * @param file
 	 * @param str
 	 * @param 是否追加 true:放在文件末尾
 	 * @return
 	 */
-	public static 返回对象 写入文件(File file, String str, boolean 是否追加)
+	public static 返回对象 写入文本文件(File file, String str, boolean 是否追加)
 	{
 		BufferedWriter bw = null;
 		try {

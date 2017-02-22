@@ -32,7 +32,7 @@ public class StreamStudy
 {
 	public static void main(String[] args)
 	{
-		
+		System.out.println("我就试下还能上传不？");
 	}
 	
 	/**

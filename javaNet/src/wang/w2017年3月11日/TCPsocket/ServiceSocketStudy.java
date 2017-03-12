@@ -40,9 +40,10 @@ public class ServiceSocketStudy
 				int size = 0;
 				// while ((size = inputStream.read(buf)) != -1)
 				// {
-				inputStream.read(buf);
-				System.out.println(new String(buf));
-				outputStream.write(buf);
+				size = inputStream.read(buf);
+				System.out.println(new String(buf, 0, size));
+				outputStream.write(buf, 0, size);
+				accept.close();
 				// }
 				
 				System.out.println();

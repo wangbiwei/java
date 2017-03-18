@@ -24,10 +24,10 @@ public class 模拟浏览器
 	{
 		try
 		{
-			Socket socket = new Socket("127.0.0.1", 8080);
+			Socket socket = new Socket("www.baidu.com", 80);
 			
 			OutputStream outputStream = socket.getOutputStream();
-			String str = "GET /examples/index.html HTTP/1.1\r\n" + "Host: 127.0.0.1:10000\r\n"
+			String str = "GET / HTTPS/1.1\r\n" + "Host: www.baidu.com\r\n"
 					+ "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0\r\n"
 					+ "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n"
 					+ "Accept-Language: zh-CN,en-US;q=0.7,en;q=0.3\r\n" + "Accept-Encoding: gzip, deflate\r\n"

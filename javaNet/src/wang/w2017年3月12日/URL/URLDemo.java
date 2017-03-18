@@ -24,7 +24,7 @@ public class URLDemo
 	{
 		try
 		{
-			URL url = new URL("http://127.0.0.1:8080/examples/");
+			URL url = new URL("http://www.baidu.com");
 			
 			URLConnection openConnection = url.openConnection();
 			System.out.println(url.getHost());
@@ -32,6 +32,7 @@ public class URLDemo
 			System.out.println(url.getProtocol());
 			System.out.println(url.getPath());
 			System.out.println(url.getFile());
+			System.out.println(url.getContent());
 			
 			InputStream inputStream = openConnection.getInputStream();
 			

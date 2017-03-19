@@ -80,7 +80,7 @@ public class ServiceSocketStudy
 	{
 		try
 		{
-			Socket socket = new Socket("www.baidu.com", 443);
+			Socket socket = new Socket("www.baidu.com", 80);
 			
 			OutputStream outputStream = socket.getOutputStream();
 			String str = "GET / HTTP/1.1\r\n" + "Host: www.baidu.com\r\n"
@@ -105,16 +105,17 @@ public class ServiceSocketStudy
 			{
 				if (temp.contains("302 Moved Temporarily"))
 				{
-					temp = temp.replaceAll("302 Moved Temporarily", "200");
+					temp = temp + "\r\n" + "Refresh:10;";
 				}
-				if (temp.contains("Location"))
-				{
-					continue;
-				}
-				if (temp.contains("Set-Cookie:"))
-				{
-					continue;
-				}
+				// if (temp.contains("Location"))
+				// {
+				// continue;
+				// }
+				// if (temp.contains("Set-Cookie:"))
+				// {
+				// continue;
+				// }
+				
 				output.write((temp + "\r\n").getBytes());
 			}
 		} catch (IOException e)
